@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>CompDes18</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                
+
+                <!-- Slides are separated by newline + three dashes + newline, vertical slides identical but two dashes -->
+                <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-background="#d9d8d8" style="text-align: left;">
+                    <script type="text/template">
+                        ## WHY C#?
+                        
+                        --
+                        
+                        1. Most of the examples online are written in C#
+                        
+                        ---
+                        
+                        ## MACRO
+                        
+                        ---
+                        
+                        ## MACRO MANAGER
+                        
+                        
+                        **Application**
+                        
+                        ```python
+                        Macro modules available to all opened Revit projects 
+                        in the current instance of the Revit application.
+                        ``` 
+                        
+                        **Active document tab**
+                        
+                        ```python
+                        The active document tab represents the currently active
+                        project in Revit. The project does not necessarily 
+                        contain embedded macros.
+                        ```
+
+                        ---
+                        
+                        # DICTIONARY
+                        
+                        ---
+                        
+                        **NAMESPACE**
+                        
+                        *Python*
+                        
+                        ```python
+                        import clr
+                        clr.AddReference('RevitAPI')
+                        clr.AddReference('RevitAPIUI')
+                        from Autodesk.Revit.DB import *
+                        from Autodesk.Revit.UI import *
+                        ```
+                        
+                        *C#*
+                        ```python
+                        using System;
+                        using Autodesk.Revit.UI;
+                        using Autodesk.Revit.DB;
+                        using Autodesk.Revit.UI.Selection;
+                        using System.Collections.Generic;
+                        using System.Linq;
+                        ```
+                        --
+                        
+                        **DOCUMENT MANAGER**
+                        
+                        *Python*
+                        
+                        ```python
+                        doc = DocumentManager.Instance.CurrentDBDocument
+                        uidoc=DocumentManager.Instance.CurrentUIApplication
+                            .ActiveUIDocument
+                        ```
+                        
+                        *C#*
+                        ```python
+                        #Access the UI of the currently Revit project opened
+                        UIDocument uidoc = this.ActiveUIDocument;
+                        #The active or top most view of the project
+                        Document doc = uidoc.Document;
+                        ```
+                                                --
+                        
+                        **FILTER**
+                        
+                        *Python*
+                        
+                        ```python
+            viewTypes = list(FilteredElementCollector(doc).OfClass(ViewFamilyType))
+            for vt in viewTypes:
+                if str(vt.ViewFamily) == 'Drafting':
+                    viewType = vt
+                    break
+                        ```
+                        
+                        *C#*
+                        ```python
+                        #Access the UI of the currently Revit project opened
+                        UIDocument uidoc = this.ActiveUIDocument;
+                        #The active or top most view of the project
+                        Document doc = uidoc.Document;
+                        ```
+                        
+
+                    </script>
+                </section>
+                
+                
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+             Reveal.configure({ slideNumber: true,
+                                transition: 'none'});
+            
+			Reveal.initialize({                
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
