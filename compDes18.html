@@ -11,6 +11,10 @@
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
+        
+        <script src="//code.jquery.com/jquery.js"></script>
+        <script src="//d3js.org/d3.v3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.7.1/gist-embed.min.js"></script>
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -24,6 +28,47 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
+                
+<section>
+    <h3>Highlight (C#)</h3>
+        <code data-gist-id="a90eb49a0c322bb2f0c3adfbd1acc794" data-gist-file="CreateDraftingView.cs" data-gist-hide-footer="true"></code>
+        <a href="http://gist-reveal.it/">http://gist-reveal.it/YOUR_GIST_ID_HERE</a>
+        <pre class="javascript"><code data-trim>
+            //Start Transaction
+            using (Transaction t = new Transaction(doc))
+            {
+            try {
+                t.Start("Create Drafting View");
+                ViewDrafting newDraftingView = ViewDrafting
+                                        .Create(doc, vft.Id);
+                t.Commit();
+                TaskDialog.Show("Result", "Success");
+                }
+            catch { 
+                TaskDialog.Show("Result", "Error");
+                }    
+            }
+        </code></pre>
+      
+    <aside class="notes">
+        I'm your Notes
+    </aside>
+
+</section>
+                    
+                <section>
+                    <h3>H2 element</h3>
+                    <br>
+                    <p>A paragraph...</p>
+                    <ul>
+                      <li>Item-1</li>
+                      <li>Item-2</li>
+                      <li>Item-3</li>
+                    </ul>
+                </section>
+
+                
+                
                 
 
                 <!-- Slides are separated by newline + three dashes + newline, vertical slides identical but two dashes -->
@@ -112,24 +157,28 @@
                         *Python*
                         
                         ```python
-            viewTypes = list(FilteredElementCollector(doc).OfClass(ViewFamilyType))
-            for vt in viewTypes:
-                if str(vt.ViewFamily) == 'Drafting':
-                    viewType = vt
-                    break
+                        viewTypes = list(FilteredElementCollector(doc).
+                                        .OfClass(ViewFamilyType))
+                        for vt in viewTypes:
+                            if str(vt.ViewFamily) == 'Drafting':
+                            viewType = vt
+                            break
                         ```
                         
                         *C#*
                         ```python
-                        #Access the UI of the currently Revit project opened
-                        UIDocument uidoc = this.ActiveUIDocument;
-                        #The active or top most view of the project
-                        Document doc = uidoc.Document;
+                        # Select all the ViewFamilyType in the project
+                        FilteredElementCollector viewTypes = new 
+                                        FilteredElementCollector(doc)
+                                        .OfClass(typeof(ViewFamilyType));			
                         ```
                         
 
                     </script>
                 </section>
+                
+                
+                
                 
                 
 			</div>

@@ -12,11 +12,11 @@ based on dark.css by Ivan Sagalaev
   background: #3f3f3f;
   color: #dcdcdc;
 }
-
+/*using try methods*/
 .hljs-keyword,
 .hljs-selector-tag,
 .hljs-tag {
-  color: #e3ceab;
+  color: #40d9bc;
 }
 
 .hljs-template-tag {
@@ -30,7 +30,7 @@ based on dark.css by Ivan Sagalaev
 .hljs-variable,
 .hljs-template-variable,
 .hljs-attribute {
-  color: #efdcbc;
+  color: #ffa000;
 }
 
 .hljs-literal {
@@ -53,21 +53,22 @@ based on dark.css by Ivan Sagalaev
 .hljs-symbol,
 .hljs-bullet,
 .hljs-link {
-  color: #dca3a3;
+  color: #2069f2;
 }
 
+/*String btw quotation marks*/
 .hljs-deletion,
 .hljs-string,
 .hljs-built_in,
 .hljs-builtin-name {
-  color: #cc9393;
+  color: #5cb4ff;
 }
-
+/*comment*/
 .hljs-addition,
 .hljs-comment,
 .hljs-quote,
 .hljs-meta {
-  color: #7f9f7f;
+  color: #22d022;
 }
 
 
