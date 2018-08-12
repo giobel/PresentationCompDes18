@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>reveal.js - The HTML Presentation Framework</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+
+    <script src="js/skulpt.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        .btn-primary {
+            background-color: #428BCA;
+            border-color: #357EBD;
+            color: #FFFFFF;
+        }
+        .btn-danger {
+            background-color: #D9534F;
+            border-color: #D43F3A;
+            color: #FFFFFF;
+        }
+        .btn {
+            -moz-user-select: none;
+            background-image: none;
+            border: 1px solid rgba(0, 0, 0, 0);
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857;
+            margin-bottom: 0;
+            padding: 6px 12px;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .large {
+            font-size: 1.2em;
+        }
+
+
+    </style>
+    <script type="text/javascript">
+        // output functions are configurable. This one just appends some text
+        // to a pre element.
+        function run(button){
+            input = $(button).siblings("textarea");
+            output = $(button).siblings("pre");
+
+            code = $(input).val();
+            output.innerHTML = '';
+            Sk.canvas = "mycanvas";
+            Sk.pre = output.get()[0].id;
+            Sk.configure({output: outf, read:builtinRead});
+            eval(Sk.importMainWithBody("<stdin>",false, code));
+        }
+
+        function outf(text) {
+            mypre = $(Reveal.getCurrentSlide()).children("pre")[0];
+            mypre.innerHTML = mypre.innerHTML + text;
+        }
+
+        function clear_output() {
+            mypre = $(Reveal.getCurrentSlide()).children("pre")[0];
+            mypre.innerHTML = '';
+        }
+
+        function builtinRead(x) {
+            if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+                throw "File not found: '" + x + "'";
+            return Sk.builtinFiles["files"][x];
+        }
+    </script>
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+<section>
+    <h1>Reveal.js</h1>
+    <h3>HTML Presentations Made Easy</h3>
+    <p>Hede</p>
+
+</section>
+
+
+
+<section>
+<textarea cols="40" rows="4" style="font-size:0.8em">
+print 2*3
+</textarea>
+    <br/>
+    <button onclick="run(this);" class="btn btn-primary large">Run</button>
+    <button onclick="clear_output();" class="btn btn-danger large">Clear</button>
+<pre style="height:200px; scroll: true">
+</pre>
+</section>
+<section>
+    <h2>Pass this.</h2>
+    <p>Hey!</p>
+</section>
+<section>
+<textarea cols="40" rows="4" style="font-size:0.8em">
+print "Hello"
+</textarea>
+    <br/>
+    <button onclick="run(this);" class="btn btn-primary large">Run</button>
+    <button onclick="clear_output();" class="btn btn-danger large">Clear</button>
+<pre style="height:200px; scroll: true">
+</pre>
+</section>
+
+</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+
+</script>
+
+</body>
+</html>

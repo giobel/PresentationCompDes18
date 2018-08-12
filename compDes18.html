@@ -28,89 +28,61 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-                
-<section>
-    <h3>Highlight (C#)</h3>
-        <code data-gist-id="a90eb49a0c322bb2f0c3adfbd1acc794" data-gist-file="CreateDraftingView.cs" data-gist-hide-footer="true"></code>
-        <a href="http://gist-reveal.it/">http://gist-reveal.it/YOUR_GIST_ID_HERE</a>
-        <pre class="javascript"><code data-trim>
-            //Start Transaction
-            using (Transaction t = new Transaction(doc))
-            {
-            try {
-                t.Start("Create Drafting View");
-                ViewDrafting newDraftingView = ViewDrafting
-                                        .Create(doc, vft.Id);
-                t.Commit();
-                TaskDialog.Show("Result", "Success");
-                }
-            catch { 
-                TaskDialog.Show("Result", "Error");
-                }    
-            }
-        </code></pre>
-      
-    <aside class="notes">
-        I'm your Notes
-    </aside>
 
-</section>
-                    
                 <section>
-                    <h3>H2 element</h3>
-                    <br>
-                    <p>A paragraph...</p>
-                    <ul>
-                      <li>Item-1</li>
-                      <li>Item-2</li>
-                      <li>Item-3</li>
-                    </ul>
+                <h3>Highlight (C#)</h3>
+                <code data-gist-id="a90eb49a0c322bb2f0c3adfbd1acc794" data-gist-file="CreateDraftingView.cs" data-gist-hide-footer="true" data-gist-line="9-10"></code>
                 </section>
-
-                
-                
-                
-
+                    
                 <!-- Slides are separated by newline + three dashes + newline, vertical slides identical but two dashes -->
+                
+                <!-- 1. WHY C# -->
                 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-background="#d9d8d8" style="text-align: left;">
                     <script type="text/template">
-                        ## WHY C#?
-                        
-                        --
-                        
-                        1. Most of the examples online are written in C#
-                        
-                        ---
-                        
+                    ## WHY C#?
+                    ---
+                    1. Most of the examples online are written in C#    
+                    
+                    2. Same language is used to build Zero Touch Nodes
+                    </script>
+                </section>
+                
+                <!-- 1. WHY C# -->
+                <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-background="#d9d8d8" style="text-align: left;">
+                    <script type="text/template">
                         ## MACRO
+                        ---
                         
                         ---
                         
                         ## MACRO MANAGER
+                        ---
+                        *Application*
                         
-                        
-                        **Application**
-                        
-                        ```python
+                        ```html
                         Macro modules available to all opened Revit projects 
                         in the current instance of the Revit application.
                         ``` 
                         
-                        **Active document tab**
+                        *or Active document tab*
                         
-                        ```python
+                        ```html
                         The active document tab represents the currently active
                         project in Revit. The project does not necessarily 
                         contain embedded macros.
                         ```
-
-                        ---
-                        
-                        # DICTIONARY
                         
                         ---
                         
-                        **NAMESPACE**
+                        ## DICTIONARY
+                        ---
+                        
+                        - Double quotes encode a string of multiple characters, single quotes encode a single character (data type *char*)
+                        
+                        ---
+                        
+                        ### NAMESPACE
+                        ---
                         
                         *Python*
                         
@@ -123,7 +95,7 @@
                         ```
                         
                         *C#*
-                        ```python
+                        ```csharp
                         using System;
                         using Autodesk.Revit.UI;
                         using Autodesk.Revit.DB;
@@ -131,34 +103,55 @@
                         using System.Collections.Generic;
                         using System.Linq;
                         ```
+                        
                         --
                         
-                        **DOCUMENT MANAGER**
+                        ### DOCUMENT MANAGER
+                        ---
                         
                         *Python*
                         
                         ```python
                         doc = DocumentManager.Instance.CurrentDBDocument
-                        uidoc=DocumentManager.Instance.CurrentUIApplication
+                        uidoc = DocumentManager.Instance.CurrentUIApplication
                             .ActiveUIDocument
                         ```
                         
                         *C#*
-                        ```python
-                        #Access the UI of the currently Revit project opened
+                        ```csharp
+                        //Access the UI of the currently Revit project opened
                         UIDocument uidoc = this.ActiveUIDocument;
-                        #The active or top most view of the project
+                        //The active or top most view of the project
                         Document doc = uidoc.Document;
                         ```
-                                                --
                         
-                        **FILTER**
+                        --
+                        
+                        ### SELECTION
+                        ---
                         
                         *Python*
                         
                         ```python
                         viewTypes = list(FilteredElementCollector(doc).
                                         .OfClass(ViewFamilyType))
+                        ```
+                        
+                        *C#*
+                        ```csharp
+                        FilteredElementCollector viewTypes = new 
+                                        FilteredElementCollector(doc)
+                                        .OfClass(typeof(ViewFamilyType));			
+                        ```
+                        
+                        --
+                        
+                        ### FILTER
+                        ---
+                        
+                        *Python*
+                        
+                        ```python
                         for vt in viewTypes:
                             if str(vt.ViewFamily) == 'Drafting':
                             viewType = vt
@@ -166,19 +159,58 @@
                         ```
                         
                         *C#*
+                        ```csharp
+                        ViewFamilyType vft = null;
+                        foreach (ViewFamilyType vt in viewTypes) {
+                            if (vt.Name == "Detail View 1"){
+                            vft = vt;
+                            }
+                        }
+                        ```
+                        
+                        --
+                        
+                        ### TRANSACTION
+                        ---
+                        
+                        *Python*
+                        
                         ```python
-                        # Select all the ViewFamilyType in the project
-                        FilteredElementCollector viewTypes = new 
-                                        FilteredElementCollector(doc)
-                                        .OfClass(typeof(ViewFamilyType));			
+                        t = Transaction (doc, 'Make new Drafting view')
+                        t.Start()
+                        t.Commit()
+                        ```
+                        
+                        *C#*
+                        ```csharp
+                        using (Transaction t = new Transaction(doc))
+                        {
+                        t.Start("Make new Drafting view");
+                        t.Commit();
+                        }
+                        ```
+                        
+                        --
+                        
+                        ### CALL A METHOD
+                        ---
+                        
+                        *Python*
+                        
+                        ```python
+                        newDraftingView = ViewDrafting.Create(doc, viewType.Id)
+                        newDraftingView.Name = textBox.Text
+                        ```
+                        
+                        *C#*
+                        ```csharp
+                        ViewDrafting newDraftingView=ViewDrafting.Create(doc,vft.Id);
+                        newDraftingView.Name = "My New Drafting View";
                         ```
                         
 
                     </script>
                 </section>
-                
-                
-                
                 
                 
 			</div>
