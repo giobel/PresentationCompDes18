@@ -1,3 +1,3 @@
 # PresentationCompDes18
 
-## https://github.com/giobel/PresentationCompDes18/compDes18.html
+## [compDes18](https://giobel.github.io/PresentationCompDes18/compDes18)
