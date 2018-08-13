@@ -227,7 +227,7 @@
                         *Python*
                         
                         ```python
-                        viewTypes = list(FilteredElementCollector(doc)..OfClass(ViewFamilyType))
+                        viewTypes = list(FilteredElementCollector(doc).OfClass(ViewFamilyType))
                         ```
                         
                         *C#*
@@ -262,7 +262,7 @@
                         
                         --
                         
-                        ### TRANSACTION
+                        ## TRANSACTION
                         ---
                         <br>
                         *Python*
@@ -307,10 +307,12 @@
                     <script type="text/template">
                         ## CODE STRUCTURE
                         ---
-                        
-                        1. Store your methods in a separate Class (i.e. Collectors, )
+                        <br>
+                        1. Store your methods in a separate Class (i.e. Helpers) 
                         2. These methods must be *public static*
-                        2. Call your methods from ThisApplication
+                        3. Add a Form to the project 
+                        4. Create an instance of the Form in ThisApplication
+                        5. Call your methods from ThisApplication (i.e. Helpers.MethodName)
                         
                     </script>
                 </section>                    
@@ -324,7 +326,8 @@
                     ```csharp
                     public static List<View> collectTemplates(Document doc){
                         IEnumerable<View> fec = new FilteredElementCollector(doc)
-                                    .OfClass(typeof(View)).Cast<View>();
+                                    .OfClass(typeof(View))
+                                    .Cast<View>();
                         List<View> myVT = new List<View>();
                         foreach (View v in fec) 
                         {
@@ -352,22 +355,18 @@
                     ---
                     <br>
                     ```csharp
-                    public partial class Form2 : frms.Form
-                    {
+                    public partial class Form2 : frms.Form {
                         public int chosenView;
-                        public Form2(Document doc)
-                        {			
+                        public Form2(Document doc) {			
                             InitializeComponent();
                             List<View> viewTemplates = Helpers.collectTemplates(doc);
                             foreach (var v in viewTemplates) {
                             comboBoxDrop.Items.Add(v.Name);
                             }
                         }
-                        void Form2Load(object sender, EventArgs e){ 
-                        }
+                        void Form2Load(object sender, EventArgs e){ }
                         void ComboBox1SelectedIndexChanged(object sender, EventArgs e){
-                            chosenView = comboBoxDrop.SelectedIndex;
-                        }
+                            chosenView = comboBoxDrop.SelectedIndex;}
                     }
                     ```
                     
