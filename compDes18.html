@@ -47,12 +47,13 @@
                     ## WHY C#?
                     ---
                     1. Most of the examples online are written in C#    
-                    
                     2. Same language is used to build Zero Touch Nodes
+                    3. Independent from Dynamo version
+                    4. Faster execution and keyboard shortcuts available
                     </script>
                 </section>
                 
-                <!-- 2. MACRO MANAGER/SHARP DEVELOP IDE -->
+                <!-- 2.+3. MACRO MANAGER/SHARP DEVELOP IDE -->
                 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-background="#d9d8d8" style="text-align: left;">
                     <script type="text/template">
                         ## MACRO
@@ -79,7 +80,7 @@
                     </script>
                 </section>
                 
-                <!-- 3. Python C# Dictionary -->
+                <!-- 4.+5. Python C# Dictionary -->
                 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-background="#d9d8d8" style="text-align: left;">
                     <script type="text/template">
                         ## PYTHON to C# #
@@ -216,12 +217,142 @@
                         ViewDrafting newDraftingView=ViewDrafting.Create(doc,vft.Id);
                         newDraftingView.Name = "My New Drafting View";
                         ```
-                        
-
                     </script>
                 </section>
                 
-                
+                <!-- 6. CODE STRUCTURE -->
+                <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-background="#d9d8d8" style="text-align: left;">
+                    <script type="text/template">
+                        ## CODE STRUCTURE
+                        ---
+                        
+                        1. Store your methods in a separate Class (i.e. Collectors, )
+                        2. These methods must be *public static*
+                        2. Call your methods from ThisApplication
+                        
+                    </script>
+                </section>                    
+                    
+                <!-- 7. COLLECT TEMPLATES -->
+                <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-background="#d9d8d8" style="text-align: left;">
+                    <script type="text/template">
+                    ### HELPERS 
+                    ---
+                    
+                    ```csharp
+                    public static List<View> collectTemplates(Document doc){
+                        IEnumerable<View> fec = new FilteredElementCollector(doc)
+                                    .OfClass(typeof(View)).Cast<View>();
+                        List<View> myVT = new List<View>();
+                        foreach (View v in fec) 
+                        {
+                            if (v.IsTemplate){
+                            myVT.Add(v);
+                            }
+                        }
+                        return myVT;	
+                    }
+                    ```
+                    
+                    --
+                    
+                    ```csharp
+                    public static
+                    ```
+                    
+                    ```csharp
+                    IEnumerable<View>
+                    ```
+                    
+                    ---
+                    
+                    ### FORM
+                    ---
+                    
+                    ```csharp
+                    public partial class Form2 : frms.Form
+                    {
+                        public int chosenView;
+                        public Form2(Document doc)
+                        {			
+                            InitializeComponent();
+                            List<View> viewTemplates = Helpers
+                                    .collectTemplates(doc);
+                            foreach (var v in viewTemplates) {
+                            comboBoxDrop.Items.Add(v.Name);
+                            }
+                        }
+                        void Form2Load(object sender, EventArgs e){ }
+                        void ComboBox1SelectedIndexChanged
+                                        (object sender, EventArgs e)
+                        {
+                            chosenView = comboBoxDrop.SelectedIndex;
+                        }
+                    }
+                    ```
+                    
+                    --
+                    
+                    ### Avoid namespace conflicts
+                    
+                    ```csharp
+                    using winForm = System.Windows.Forms;
+                    ```
+                    
+                    ### Combobox Selected Index Changed Event
+                    ```csharp
+                    void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
+                    {
+                        chosenViewTemplate = comboBox1.SelectedIndex;
+                    }
+                    ```
+                    
+                    ### Add the document as an argument of the form
+                    ```csharp
+                    public CreateDraftingViewForm(Document doc)
+                    ```
+                    
+                    ---
+                    
+                    ### THIS APPLICATION
+                    ---
+                    
+                    ```csharp
+                    public void PopulateDropDown()
+                    {
+                        UIDocument uidoc = this.ActiveUIDocument;
+                        Document doc = uidoc.Document;
+                        List<View> allViewTemplates = Helpers
+                                        .collectTemplates(doc);
+                        using(var forma = new Form2(doc)){
+                        //use ShowDialog to show the form as a modal dialog box.
+                        forma.ShowDialog();	    
+                        TaskDialog.Show("result",
+                                    allViewTemplates[forma.chosenView].Name);
+                    }
+                    ```
+                    
+                    --
+                    
+                    ### How to access properties inside classes
+                    
+                    ```csharp
+                    TaskDialog.Show("ViewTemplateSelected", form.chosenViewTemplate);
+                    ```
+                    
+                    ### Use while to keep the Dialog box open until the desired result is achieved
+                    
+                    ```csharp
+                    string interrupt = "False";
+                    while(interrupt == "False")
+                    {
+                        form.ShowDialog();
+                    }
+                    ```
+                    
+                    </script>
+                </section>                    
+
 			</div>
 		</div>
 
