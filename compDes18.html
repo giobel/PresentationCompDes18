@@ -46,6 +46,7 @@
                     <script type="text/template">
                     ## WHY C#?
                     ---
+                    <br>
                     1. Most of the examples online are written in C#    
                     2. Same language is used to build Zero Touch Nodes
                     3. Independent from Dynamo version
@@ -59,16 +60,19 @@
                     <script type="text/template">
                         ## MACRO vs EXTERNAL COMMAND
                         ---
-                        
+                        <br>
                         
                         
                         ---
                         
                         ## MACRO MANAGER
                         ---
+                        <br>
                         *Application:*
                         
                         Macro modules available to all opened Revit projects in the current instance of the Revit application.
+                        
+                        <br>
                         
                         *Active document tab:*
                         
@@ -93,14 +97,14 @@
                         
                         ## PUBLIC
                         ---
-                        
+                        <br>
                         Available to all callers with access to the type
                         
                         --                        
                         
                         ## VOID 
                         ---
-                        
+                        <br>
                         The method does not return anything. For example:
                         ```csharp
                         void Ok_btnClick(object sender, EventArgs e)
@@ -114,7 +118,7 @@
                         
                         ## RETURN
                         ---
-                        
+                        <br>
                         This method selects all the View template in the project and
                         return them as a list.
                         ```csharp
@@ -138,7 +142,7 @@
                         
                         ## STATIC 
                         ---
-                        
+                        <br>
                         No instance is required to be invoked.
                         
                         ```csharp
@@ -156,7 +160,7 @@
                         
                         ## WHY I NEED TO CREATE AN INSTANCE OF SOME CLASSES?
                         ---
-
+                        <br>
                     </script>
                 </section>
                 
@@ -166,16 +170,16 @@
                     <script type="text/template">
                         ## PYTHON to C# #
                         ---
-                        
+                        <br>
                         1. When you declare a variable or constant, you must either specify its type or use the *var* keyword
                         2. You must end each statement with a semicolon;
                         3. Double quotes encode a string of multiple characters, single quotes encode a single character (data type *char*)
                         
                         ---
                         
-                        ### NAMESPACE
+                        ## NAMESPACE
                         ---
-                        
+                        <br>
                         *Python*
                         ```python
                         import clr
@@ -197,9 +201,9 @@
                         
                         --
                         
-                        ### DOCUMENT MANAGER
+                        ## DOCUMENT MANAGER
                         ---
-                        
+                        <br>
                         *Python*
                         
                         ```python
@@ -217,9 +221,9 @@
                         
                         --
                         
-                        ### SELECTION
+                        ## SELECTION
                         ---
-                        
+                        <br>
                         *Python*
                         
                         ```python
@@ -234,9 +238,9 @@
                         
                         --
                         
-                        ### FILTER
+                        ## FILTER
                         ---
-                        
+                        <br>
                         *Python*
                         
                         ```python
@@ -260,7 +264,7 @@
                         
                         ### TRANSACTION
                         ---
-                        
+                        <br>
                         *Python*
                         
                         ```python
@@ -280,9 +284,9 @@
                         
                         --
                         
-                        ### CALLING A METHOD
+                        ## CALLING A METHOD
                         ---
-                        
+                        <br>
                         *Python*
                         
                         ```python
@@ -314,9 +318,9 @@
                 <!-- 7. COLLECT TEMPLATES -->
                 <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-background="#d9d8d8" style="text-align: left;">
                     <script type="text/template">
-                    ### HELPERS 
+                    ## HELPERS 
                     ---
-                    
+                    <br>
                     ```csharp
                     public static List<View> collectTemplates(Document doc){
                         IEnumerable<View> fec = new FilteredElementCollector(doc)
@@ -344,9 +348,9 @@
                     
                     ---
                     
-                    ### FORM
+                    ## FORM
                     ---
-                    
+                    <br>
                     ```csharp
                     public partial class Form2 : frms.Form
                     {
@@ -354,16 +358,14 @@
                         public Form2(Document doc)
                         {			
                             InitializeComponent();
-                            List<View> viewTemplates = Helpers
-                                    .collectTemplates(doc);
+                            List<View> viewTemplates = Helpers.collectTemplates(doc);
                             foreach (var v in viewTemplates) {
                             comboBoxDrop.Items.Add(v.Name);
                             }
                         }
-                        void Form2Load(object sender, EventArgs e){ }
-                        void ComboBox1SelectedIndexChanged
-                                        (object sender, EventArgs e)
-                        {
+                        void Form2Load(object sender, EventArgs e){ 
+                        }
+                        void ComboBox1SelectedIndexChanged(object sender, EventArgs e){
                             chosenView = comboBoxDrop.SelectedIndex;
                         }
                     }
@@ -371,13 +373,18 @@
                     
                     --
                     
-                    ### Avoid namespace conflicts
-                    
+                    ## Avoid namespace conflicts
+                    ---
+                    <br>
                     ```csharp
                     using winForm = System.Windows.Forms;
                     ```
                     
-                    ### Combobox Selected Index Changed Event
+                    --
+                    
+                    ## Combobox Selected Index Changed Event
+                    ---
+                    <br>
                     ```csharp
                     void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
                     {
@@ -385,16 +392,20 @@
                     }
                     ```
                     
-                    ### Add the document as an argument of the form
+                    --
+                    
+                    ## Add the document as an argument of the form
+                    ---
+                    <br>
                     ```csharp
                     public CreateDraftingViewForm(Document doc)
                     ```
                     
                     ---
                     
-                    ### THIS APPLICATION
+                    ## THIS APPLICATION
                     ---
-                    
+                    <br>                    
                     ```csharp
                     public void PopulateDropDown()
                     {
@@ -412,19 +423,31 @@
                     
                     --
                     
-                    ### How to access properties inside classes
-                    
+                    ## How to access properties inside classes
+                    ---
+                    <br>
                     ```csharp
                     TaskDialog.Show("ViewTemplateSelected", form.chosenViewTemplate);
                     ```
                     
-                    ### Use while to keep the Dialog box open until the desired result is achieved
+                    --
                     
+                    ## Use while to keep the Dialog box open
+                    ---
+                    <br>
                     ```csharp
                     string interrupt = "False";
-                    while(interrupt == "False")
-                    {
-                        form.ShowDialog();
+                    while(interrupt == "False") {
+                    form.ShowDialog();					
+                    if (form.usertext.Length >2) {
+                            Helpers.AddDraftingView(doc, form.usertext, form.chosenTemplateId);
+                            interrupt = "True";
+                        }
+                    else if (form.usertext == "") {
+                            TaskDialog.Show("Error", "Please specify the view name"); }
+                    else if (form.usertext.Length <2) {
+                            TaskDialog.Show("Error", "The view name is too short");   }
+                    else { TaskDialog.Show("Error", "I don't know what went wrong");  } 
                     }
                     ```
                     
