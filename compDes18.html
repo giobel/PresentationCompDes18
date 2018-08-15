@@ -384,11 +384,26 @@
                     
                     --
                     
-                    ## Avoid namespace conflicts
+                    ## NAMESPACE
                     ---
                     <br>
                     ```csharp
-                    using winForm = System.Windows.Forms;
+                    using System;
+                    using Autodesk.Revit.UI;
+                    using Autodesk.Revit.DB;
+                    using Autodesk.Revit.UI.Selection;
+                    using System.Collections.Generic;
+                    using System.Windows.Forms;
+                    ```
+                    When you add the Revit namespace you'll get an error
+                    ```csharp
+                    'Form' is an ambiguous reference between 'Autodesk.Revit.DB.Form' and 'System.Windows.Forms.Form' (CS0104)
+                    ```
+                    You can solve the ambiguity:
+                    ```csharp
+                    using winForms = System.Windows.Forms;
+                    ...
+                    public partial class Form1 : winForms.Form
                     ```
                     
                     --
