@@ -41,6 +41,13 @@ body {
 /*********************************************
  * HEADERS
  *********************************************/
+
+ hr{
+  border-top: 0.1px ;
+  border-color: #222;
+  border-style: solid;
+}
+
 .reveal h1,
 .reveal h2,
 .reveal h3,

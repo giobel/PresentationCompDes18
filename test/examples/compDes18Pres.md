@@ -2,15 +2,16 @@
 customTheme : "myTheme"
 transition: "none"
 #highlightTheme: "revitHighlight"
-#width: "80%"
-height: "70%"
-center: true
-#minScale: "1"
-#maxScale: "1"
+width: "80%"
+height: "80%"
+margin: 0.1
+minScale: 1
+maxScale: 1                
+center: false
 ---
 
 ## WHY C#?
-***
+<hr>
 1. Most of the examples online are written in C#    
 2. Same language is used to build Zero Touch Nodes
 3. Independent from Dynamo version
@@ -60,7 +61,7 @@ Allows you to load your dll while running Revit without registering an addin and
 ---
 
 ## MACRO MANAGER
-***
+<hr>
 *Application:*
 
 Macro modules available to all opened Revit projects in the current instance of the Revit application.
