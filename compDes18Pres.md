@@ -273,9 +273,9 @@ ViewDrafting newDraftingView = ViewDrafting.Create(doc,vft.Id);
 newDraftingView.Name = "My New Drafting View";
 ```
 
+---
 
-
-## HELLO WORLD
+## C# SYNTAX
 ***
 ```csharp
 public void MyFirstMacro()
