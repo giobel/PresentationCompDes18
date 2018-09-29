@@ -45,6 +45,8 @@ Allows you to “snoop” into the Revit database structure. “must have” for
 - *Add-In Manager*  
 Allows you to load your dll while running Revit without registering an addin and to rebuild dll without restarting Revit
 
+<br>
+
 ##### [source: ADN Revit Training Material, 1_Revit_API_Intro](https://github.com/ADN-DevTech/RevitTrainingMaterial/blob/master/Presentation/1_Revit_API_Intro.pptx)
 ---
 
