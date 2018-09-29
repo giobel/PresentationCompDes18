@@ -1,58 +1,124 @@
-
-
-## MACRO vs EXTERNAL COMMAND
 ---
+customTheme : "myTheme"
+transition: "none"
+#highlightTheme: "revitHighlight"
+width: "80%"
+height: "80%"
+margin: 0.1
+minScale: 1
+maxScale: 1                
+center: false
+---
+
+## WHY C#?
+<hr>
+1. Most of the examples online are written in C#    
+2. Same language is used to build Zero Touch Nodes
+3. Independent from Dynamo version
+4. Faster execution and keyboard shortcuts available
+
+note: 
+
+---
+
+## EXTENDING REVIT
+***
+
+1. External command
+    - Commands are added to the External Tools pulldown in the ribbon Add-Ins tab
+
+2. External application
+    - Applications can create new panels in the ribbon Add-Ins tab
+    - External applications can invoke external commands
+
+3. SharpDevelop macro  
+
+##### [source: ADN Revit Training Material, 1_Revit_API_Intro](https://github.com/ADN-DevTech/RevitTrainingMaterial/blob/master/Presentation/1_Revit_API_Intro.pptx)
+
+---
+
+## TOOLS
+***
+- *RevitLookup*  
+Allows you to “snoop” into the Revit database structure. “must have” for any Revit API programmers. Available on ADN DevTech on Github
+
+- *Add-In Manager*  
+Allows you to load your dll while running Revit without registering an addin and to rebuild dll without restarting Revit
+
 <br>
 
+##### [source: ADN Revit Training Material, 1_Revit_API_Intro](https://github.com/ADN-DevTech/RevitTrainingMaterial/blob/master/Presentation/1_Revit_API_Intro.pptx)
+---
+
+## REVIT API DOCUMENTATION
+***
+[revitapidocs](http://www.revitapidocs.com/) by Gui Talarico
+
+[apidocs.co](https://apidocs.co/) by Gui Talarico
+
+[Autodesk Developer Network](https://www.autodesk.com/developer-network/platform-technologies/revit)
+
+[Revit Training Material](https://github.com/ADN-DevTech/RevitTrainingMaterial )
 
 ---
 
 ## MACRO MANAGER
----
-<br>
+<hr>
 *Application:*
 
 Macro modules available to all opened Revit projects in the current instance of the Revit application.
 
 <br>
-
 *Active document tab:*
 
 The active document tab represents the currently active project in Revit. The project does not necessarily contain embedded macros.
 
---
+---
 
 ## SHARP DEVELOP
+***
+- Free IDE for C# and VB.NET projects on Microsoft's .NET platform.
+- Create a module first and then add a macro to it.
+
+<img src="/images/tmp_warning.png"  height="100" width="200">
+
 ---
-<br>
-Create a module and then as many macro as you need in that module.
-
---
-
-## REVIT API DOCUMENTATION
----
-<br>
-Collection of all the available commands
-
-
-[revitapidocs by Gui Talarico](http://www.revitapidocs.com/)
-
-[Autodesk Developer Network](https://www.autodesk.com/developer-network/platform-technologies/revit)
-
---
 
 ## HELLO WORLD!
----
-<br>
-
+***
 ```csharp
-public void MyFirstMacro()
-{
-TaskDialog.Show("Dialog Title", "My first Macro!");
+public void disallowBeamJoins(){
+UIDocument uidoc = this.ActiveUIDocument;
+Document doc = uidoc.Document;
+
+ICollection<ElementId> selElementsIds = uidoc.Selection
+										.GetElementIds();
+List<Element> selElements = new List<Element>();
+string selected = "";
+foreach (var element in selElementsIds) {
+	selected += element.ToString() +"\n";
+	selElements.Add(doc.GetElement(element));	
+}
+TaskDialog.Show("Selected Element Id", selected)
+}
+```
+---
+```csharp
+using (Transaction t = new Transaction 
+							(doc, "Disallow Joins")){
+	t.Start();
+		foreach (Element e in selElements){
+			FamilyInstance fa = e as FamilyInstance;
+			StructuralFramingUtils.DisallowJoinAtEnd(fa, 0);
+			StructuralFramingUtils.DisallowJoinAtEnd(fa, 1);
+		}
+	t.Commit();
+}
+TaskDialog.Show("title", selElements.Count.ToString());
 }
 ```
 
---
+---
 
 ## PUBLIC
 ---
@@ -410,3 +476,4 @@ TaskDialog.Show("Error", "The view name is too short");   }
 else { TaskDialog.Show("Error", "I don't know what went wrong");  }
 }
 ```
+               
