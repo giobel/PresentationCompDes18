@@ -35,7 +35,7 @@ $(document).ready(function(){
             //call the UI / functionality modules
             app.userInterface();
             app.layersUI();
-            app.setBackgroundColor(0xFFFFFF);
+            app.setBackgroundColor(0xD9D8D8);
         });
     });
 
