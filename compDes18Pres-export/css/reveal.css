@@ -170,8 +170,7 @@ body {
   font-style: italic; }
 
 .reveal iframe {
-  z-index: 1;
-  border: 0; }
+  z-index: 1; }
 
 /** Prevents layering issues in certain browser/transition combinations */
 .reveal a {
