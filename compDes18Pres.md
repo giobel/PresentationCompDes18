@@ -540,3 +540,7 @@ TaskDialog.Show("title", selElements.Count.ToString());
 }
 ```
 ---
+<iframe src="https://giobel.github.io/PresentationCompDes18/compDes18Pres-export/index1" width= "900"  height="500" scrolling="no"  frameborder="0"></iframe>
+
+---
+<a href="http://tt-acm.github.io/Spectacles.WebViewer/" data-preview-link>spectacles</a>
