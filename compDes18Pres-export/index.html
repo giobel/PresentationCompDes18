@@ -47,7 +47,8 @@
 ***
 1. This is not a class on C# language
 2. There are many C# fundamentals concept that will not be covered
-3. I will give you lots of homework to do</script></section><section  data-markdown><script type="text/template">
+3. I will give you lots of homework to do
+</script></section><section  data-markdown><script type="text/template">
 
 ## EXTENDING REVIT
 ***
@@ -62,7 +63,8 @@
 3. SharpDevelop macro  
 
 ##### [source: ADN Revit Training Material, 1_Revit_API_Intro](https://github.com/ADN-DevTech/RevitTrainingMaterial/blob/master/Presentation/1_Revit_API_Intro.pptx)
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## TOOLS
 ***
@@ -74,7 +76,8 @@ Allows you to load your dll while running Revit without registering an addin and
 
 <br>
 
-##### [source: ADN Revit Training Material, 1_Revit_API_Intro](https://github.com/ADN-DevTech/RevitTrainingMaterial/blob/master/Presentation/1_Revit_API_Intro.pptx)</script></section><section  data-markdown><script type="text/template">
+##### [source: ADN Revit Training Material, 1_Revit_API_Intro](https://github.com/ADN-DevTech/RevitTrainingMaterial/blob/master/Presentation/1_Revit_API_Intro.pptx)
+</script></section><section  data-markdown><script type="text/template">
 
 ## REVIT API DOCUMENTATION
 ***
@@ -87,12 +90,14 @@ Allows you to load your dll while running Revit without registering an addin and
 [Autodesk Developer Network](https://www.autodesk.com/developer-network/platform-technologies/revit)
 
 [Revit Training Material](https://github.com/ADN-DevTech/RevitTrainingMaterial )
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 ## LET'S CREATE A MACRO
 ***
 
-<img src="/images/macro001.PNG" width="900">
-</script></section><section  data-markdown><script type="text/template">
+<img src="images/macro001.PNG" width="900">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## MACRO MANAGER
 <hr>
@@ -104,13 +109,15 @@ Macro modules available to all opened Revit projects in the current instance of 
 *Active document tab:*
 
 The active document tab represents the currently active project in Revit. The project does not necessarily contain embedded macros.
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## SHARP DEVELOP
 ***
 - Free IDE for C#, VB.NET and Python projects on Microsoft's .NET platform.
 - Create a module first and then add a macro to it.
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## PYTHON to C# #
 ***
@@ -118,7 +125,8 @@ The active document tab represents the currently active project in Revit. The pr
 2. You must end each statement with a semicolon;
 3. Double quotes encode a string of multiple characters, single quotes encode a single character (data type *char*)
 4. You don't need to worry about indentation
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## PYTHON DELETE ELEMENTS
 ***
@@ -170,7 +178,8 @@ TransactionManager.Instance.TransactionTaskDone()
 
 OUT = deleted, failed
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 
 ## NAMESPACE
@@ -196,7 +205,8 @@ using Autodesk.Revit.UI.Selection;
 using System.Collections.Generic;
 using System.Linq;
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## DOCUMENT MANAGER
 ***
@@ -224,7 +234,8 @@ collector = FilteredElementCollector( doc, view.Id ).WhereElementIsNotElementTyp
 *C#*
 ```csharp
 FilteredElementCollector viewTypes = new FilteredElementCollector(doc, view.Id).WhereElementIsNotElementType()
-```</script></section><section  data-markdown><script type="text/template">
+```
+</script></section><section  data-markdown><script type="text/template">
 
 ## ITERATION
 ***
@@ -248,7 +259,8 @@ foreach (ViewFamilyType vt in viewTypes) {
 	}
 }
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## TRANSACTION
 ***
@@ -267,7 +279,8 @@ t.Start("Delete elements in View");
 t.Commit();
 }
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## CALLING A METHOD
 ***
@@ -282,7 +295,8 @@ del_id = doc.Delete(id)
 ViewDrafting newDraftingView = ViewDrafting.Create(doc,vft.Id);
 newDraftingView.Name = "My New Drafting View";
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## C# SYNTAX
 ***
@@ -291,7 +305,8 @@ public void MyFirstMacro()
     {
     TaskDialog.Show("Dialog Title", "My first Macro!");
     }
-```</script></section><section  data-markdown><script type="text/template">
+```
+</script></section><section  data-markdown><script type="text/template">
 ## Access Modifiers 
 ***
 - **PUBLIC** Available to all callers with access to the type
@@ -299,11 +314,12 @@ public void MyFirstMacro()
 - **INTERNAL**
 - **PRIVATE**
 
-<img src="/images/modifiers.png" width="600">
+<img src="images/modifiers.png" width="600">
 
 [docs.microsoft.com](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/access-modifiers)
 
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## VOID 
 ***
@@ -315,7 +331,8 @@ usertext = textBox1.Text;
 }
 ```
 This method sets the value of a variable.
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## RETURN
 ***
@@ -338,7 +355,8 @@ foreach (View v in fec)
 return myVT;
 }
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## STATIC
 ***
@@ -354,11 +372,13 @@ An instance can be created using the *new* keyword:
 FilteredElementCollector viewTypes = new FilteredElementCollector(doc)
 	.OfClass(typeof(ViewFamilyType));
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## WHY I NEED TO CREATE AN INSTANCE OF SOME CLASSES?
 ***
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## CODE STRUCTURE
 
@@ -367,7 +387,8 @@ FilteredElementCollector viewTypes = new FilteredElementCollector(doc)
 3. Add a Form to the project
 4. Create an instance of the Form in ThisApplication
 5. Call your methods from ThisApplication (i.e. Helpers.MethodName)
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## HELPERS
 ***
@@ -396,7 +417,8 @@ public static
 ```csharp
 IEnumerable<View>
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## FORM
 ```csharp
@@ -414,7 +436,8 @@ void ComboBox1SelectedIndexChanged(object sender, EventArgs e){
 chosenView = comboBoxDrop.SelectedIndex;}
 }
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## FORM NAMESPACE
 ```csharp
@@ -436,7 +459,8 @@ using winForms = System.Windows.Forms;
 ...
 public partial class Form1 : winForms.Form
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## Combobox Selected Index Changed Event
 ***
@@ -446,14 +470,16 @@ void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
 chosenViewTemplate = comboBox1.SelectedIndex;
 }
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## Add the document as an argument of the form
 ***
 ```csharp
 public CreateDraftingViewForm(Document doc)
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## THIS APPLICATION
 ***
@@ -471,14 +497,16 @@ TaskDialog.Show("result",
 		allViewTemplates[forma.chosenView].Name);
 }
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## How to access properties inside classes
 ***
 ```csharp
 TaskDialog.Show("ViewTemplateSelected", form.chosenViewTemplate);
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## Use while to keep the Dialog box open
 ***
@@ -498,7 +526,8 @@ else { TaskDialog.Show("Error", "I don't know what went wrong");  }
 }
 ```
                
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 
 ## HELLO WORLD!
 ***
@@ -516,7 +545,8 @@ foreach (var element in selElementsIds) {
 }
 TaskDialog.Show("Selected Element Id", selected)
 }
-```</script></section><section  data-markdown><script type="text/template">
+```
+</script></section><section  data-markdown><script type="text/template">
 ## HELLO WORLD!
 ***
 ```csharp
@@ -531,9 +561,11 @@ using (Transaction t = new Transaction(doc, "Disallow Joins")){
 }
 TaskDialog.Show("title", selElements.Count.ToString());
 }
-```</script></section><section  data-markdown><script type="text/template">
+```
+</script></section><section  data-markdown><script type="text/template">
 <iframe src="https://giobel.github.io/PresentationCompDes18/compDes18Pres-export/index1" width= "900"  height="500" scrolling="no"></iframe>
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section  data-markdown><script type="text/template">
 <a href="http://tt-acm.github.io/Spectacles.WebViewer/" data-preview-link>spectacles</a></script></section></div>
         </div>
 
