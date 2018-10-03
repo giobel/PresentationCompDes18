@@ -280,7 +280,7 @@ finally{
 
 ---
 
-## CONCLUSION
+## PUT EVERYTHING TOGETHER
 ***
 *Python*
 
@@ -323,6 +323,7 @@ TaskDialog.Show("Delete Elements in View", s);
 
 ## C# SYNTAX
 ***
+
 ```csharp
 namespace allMyMacros{
 	[Autodesk.Revit.Attributes.Transaction
@@ -343,10 +344,10 @@ namespace allMyMacros{
 - Method
 
 ---
-## List, Collection, IList, ICollection
+## LIST, COLLECTION, ILIST, ICOLLECTION
 
 ---
-## Access Modifiers 
+## ACCESS MODIFIERS
 ***
 - **PUBLIC** Available to all callers with access to the type
 - **PROTECTED**
@@ -357,12 +358,11 @@ namespace allMyMacros{
 
 [docs.microsoft.com](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/access-modifiers)
 
-
 ---
 
-## VOID 
+## METHODS
 ***
-The method does not return anything. For example:
+- **VOID** The method does not return anything. For example:
 ```csharp
 void Ok_btnClick(object sender, EventArgs e)
 {
