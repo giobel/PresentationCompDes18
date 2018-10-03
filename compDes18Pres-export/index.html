@@ -141,16 +141,16 @@ doc = DocumentManager.Instance.CurrentDBDocument
 
 collector = FilteredElementCollector(doc).WhereElementIsNotElementType()
 
-elems = []
+sheets = []
 
 for c in collector:
 	if c.Category != None and c.Category.Name == "Sheets":
-			elems.append(c)
+			sheets.append(c)
 
 result = []	
 
 TransactionManager.Instance.EnsureInTransaction(doc)
-for e in elems:
+for e in sheets:
 	eid = e.Id
 	try:
 		doc.Delete(eid)
@@ -223,20 +223,20 @@ FilteredElementCollector collector = new FilteredElementCollector(doc)
 *Python*
 
 ```python
-elems = []
+sheets = []
 
 for c in collector:
 	if c.Category != None and c.Category.Name == "Sheets":
-			elems.append(c)
+			sheets.append(c)
 ```
 
 *C#*
 ```csharp
-List<Element> viewElements = new List<Element>();
+List<Element> sheets = new List<Element>();
 
 foreach (Element e in collector) {
 	if (e.Category != null && e.Category.Name == "Sheet")
-		viewElements.Add(e);
+		sheets.Add(e);
 }
 ```
 
@@ -295,7 +295,7 @@ finally{
 ```python
 result = []
 TransactionManager.Instance.EnsureInTransaction(doc)
-for e in elems:
+for e in sheets:
 	eid = e.Id
 	try:
 		doc.Delete(eid)
@@ -311,7 +311,7 @@ TransactionManager.Instance.TransactionTaskDone()
 string s = "";
 	using (Transaction t = new Transaction (doc, "Delete Elements in View")){
 	t.Start();
-	foreach (Element e in viewElements) {
+	foreach (Element e in sheets) {
 		ElementId eid = e.Id;
 		try{
 			doc.Delete(eid);
@@ -331,7 +331,8 @@ TaskDialog.Show("Delete Elements in View", s);
 ***
 ```csharp
 namespace allMyMacros{
-	[Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+	[Autodesk.Revit.Attributes.Transaction
+	(Autodesk.Revit.Attributes.TransactionMode.Manual)]
     [Autodesk.Revit.DB.Macros.AddInId("C329BC57-C708-4670-9239-A40E1CED1CE0")]
 	public partial class ThisApplication{
 		public void MyFirstMacro()
@@ -394,6 +395,9 @@ foreach (View v in fec)
 return myVT;
 }
 ```
+</script></section><section  data-markdown><script type="text/template">
+## CAST
+***
 </script></section><section  data-markdown><script type="text/template">
 
 ## STATIC
