@@ -72,7 +72,7 @@ Allows you to load your dll while running Revit without registering an addin and
 ## LET'S CREATE A MACRO
 ***
 
-<img src="/images/macro001.PNG" width="900">
+<img src="images/macro001.PNG" width="900">
 
 ---
 
@@ -353,7 +353,7 @@ namespace allMyMacros{
 - **INTERNAL**
 - **PRIVATE**
 
-<img src="/images/modifiers.png" width="600">
+<img src="images/modifiers.png" width="600">
 
 [docs.microsoft.com](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/access-modifiers)
 
