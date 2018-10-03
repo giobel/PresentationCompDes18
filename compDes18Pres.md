@@ -197,6 +197,7 @@ view  = doc.ActiveView
 ```csharp
 UIDocument uidoc = this.ActiveUIDocument;
 Document doc = uidoc.Document;
+View view = doc.ActiveView;
 ```
 note: Access the UI of the currently Revit project opened. The active or top most view of the project.
 
@@ -211,8 +212,10 @@ collector = FilteredElementCollector( doc, view.Id ).WhereElementIsNotElementTyp
 
 *C#*
 ```csharp
-FilteredElementCollector viewTypes = new FilteredElementCollector(doc, view.Id).WhereElementIsNotElementType()
+FilteredElementCollector collector = new FilteredElementCollector(doc, view.Id)
+.WhereElementIsNotElementType();
 ```
+
 ---
 
 ## ITERATION
@@ -230,11 +233,11 @@ for c in collector:
 
 *C#*
 ```csharp
-ViewFamilyType vft = null;
-foreach (ViewFamilyType vt in viewTypes) {
-	if (vt.FamilyName == "Drafting View"){
-	vft = vt;
-	}
+List<Element> viewElements = new List<Element>();
+
+foreach (Element e in collector) {
+	if (e.Category.HasMaterialQuantities == true)
+		viewElements.Add(e);
 }
 ```
 
@@ -279,11 +282,26 @@ newDraftingView.Name = "My New Drafting View";
 ## C# SYNTAX
 ***
 ```csharp
-public void MyFirstMacro()
-    {
-    TaskDialog.Show("Dialog Title", "My first Macro!");
-    }
+namespace allMyMacros{
+	[Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [Autodesk.Revit.DB.Macros.AddInId("C329BC57-C708-4670-9239-A40E1CED1CE0")]
+	public partial class ThisApplication{
+		public void MyFirstMacro()
+    	{
+    		TaskDialog.Show("Dialog Title", "My first Macro!");
+   		}
+	}
+}
 ```
+
+---
+- Namespace
+- Class
+- Method
+
+---
+## List, Collection, IList, ICollection
+
 ---
 ## Access Modifiers 
 ***

@@ -210,6 +210,7 @@ view  = doc.ActiveView
 ```csharp
 UIDocument uidoc = this.ActiveUIDocument;
 Document doc = uidoc.Document;
+View view = doc.ActiveView;
 ```
 <aside class="notes"><p>Access the UI of the currently Revit project opened. The active or top most view of the project.</p>
 </aside></script></section><section  data-markdown><script type="text/template">
@@ -223,7 +224,7 @@ collector = FilteredElementCollector( doc, view.Id ).WhereElementIsNotElementTyp
 
 *C#*
 ```csharp
-FilteredElementCollector viewTypes = new FilteredElementCollector(doc, view.Id).WhereElementIsNotElementType()
+FilteredElementCollector viewFec = new FilteredElementCollector(doc, view.Id).WhereElementIsNotElementType();
 ```</script></section><section  data-markdown><script type="text/template">
 
 ## ITERATION
