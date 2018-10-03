@@ -131,9 +131,8 @@ collector = FilteredElementCollector( doc, view.Id ).WhereElementIsNotElementTyp
 elems = []
 
 for c in collector:
-	#if c.Category.Name == "Walls":
-	if c.Category.HasMaterialQuantities == True:
-		elems.append(c)
+	if c.Category != None and c.Category.Name == "Sheets":
+			elems.append(c)
 
 result = []	
 
