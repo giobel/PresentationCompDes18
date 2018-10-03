@@ -150,25 +150,19 @@ for c in collector:
 	if c.Category.HasMaterialQuantities == True:
 		elems.append(c)
 
-deleted = []
-failed = []
+result = []	
 
 TransactionManager.Instance.EnsureInTransaction(doc)
-	
 for e in elems:
-	id = None
+	eid = e.Id
 	try:
-		id = e.Id
-		del_id = doc.Delete(id)
-		deleted.extend([d.ToString() for d in del_id])
+		doc.Delete(eid)
+		result.append(str(eid)+" deleted")
 	except:
-		if id is not None:
-			failed.append(id.ToString())
-	
+		result.append(str(eid)+" failed")
 TransactionManager.Instance.TransactionTaskDone()
 
-
-OUT = deleted, failed
+OUT = result
 ```
 </script></section><section  data-markdown><script type="text/template">
 
@@ -224,8 +218,10 @@ collector = FilteredElementCollector( doc, view.Id ).WhereElementIsNotElementTyp
 
 *C#*
 ```csharp
-FilteredElementCollector viewFec = new FilteredElementCollector(doc, view.Id).WhereElementIsNotElementType();
-```</script></section><section  data-markdown><script type="text/template">
+FilteredElementCollector collector = new FilteredElementCollector(doc, view.Id)
+.WhereElementIsNotElementType();
+```
+</script></section><section  data-markdown><script type="text/template">
 
 ## ITERATION
 ***
@@ -242,11 +238,11 @@ for c in collector:
 
 *C#*
 ```csharp
-ViewFamilyType vft = null;
-foreach (ViewFamilyType vt in viewTypes) {
-	if (vt.FamilyName == "Drafting View"){
-	vft = vt;
-	}
+List<Element> viewElements = new List<Element>();
+
+foreach (Element e in collector) {
+	if (e.Category.HasMaterialQuantities == true)
+		viewElements.Add(e);
 }
 ```
 </script></section><section  data-markdown><script type="text/template">
@@ -257,6 +253,7 @@ foreach (ViewFamilyType vt in viewTypes) {
 
 ```python
 TransactionManager.Instance.EnsureInTransaction(doc)
+#Do something to the Revit model
 TransactionManager.Instance.TransactionTaskDone()
 ```
 
@@ -265,34 +262,95 @@ TransactionManager.Instance.TransactionTaskDone()
 using (Transaction t = new Transaction(doc))
 {
 t.Start("Delete elements in View");
+//Do something to the Revit model
 t.Commit();
 }
 ```
 </script></section><section  data-markdown><script type="text/template">
+## TRY CATCH
+***
 
-## CALLING A METHOD
+```python
+try:
+#Try something
+except:
+#Except
+finally:
+#Finally
+```
+
+```csharp
+try{
+	//Try something
+}
+catch{
+	//Catch
+}
+finally{
+	//Release
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+
+## CONCLUSION
 ***
 *Python*
 
 ```python
-del_id = doc.Delete(id)
+result = []
+TransactionManager.Instance.EnsureInTransaction(doc)
+for e in elems:
+	eid = e.Id
+	try:
+		doc.Delete(eid)
+		result.append(str(eid)+" deleted")
+	except:
+		result.append(str(eid)+" failed")
+TransactionManager.Instance.TransactionTaskDone()
 ```
 
 *C#*
 ```csharp
-ViewDrafting newDraftingView = ViewDrafting.Create(doc,vft.Id);
-newDraftingView.Name = "My New Drafting View";
+string s = "";
+	using (Transaction t = new Transaction (doc, "Delete Elements in View")){
+	t.Start();
+	foreach (Element e in viewElements) {
+		ElementId eid = e.Id;
+		try{
+			doc.Delete(eid);
+			s += eid.ToString() + " deleted" + Environment.NewLine;
+		}
+		catch{
+			s += eid.ToString() + " failed" + "/n";
+		}
+	}
+	t.Commit();
+}
+TaskDialog.Show("Delete Elements in View", s);
 ```
 </script></section><section  data-markdown><script type="text/template">
 
 ## C# SYNTAX
 ***
 ```csharp
-public void MyFirstMacro()
-    {
-    TaskDialog.Show("Dialog Title", "My first Macro!");
-    }
-```</script></section><section  data-markdown><script type="text/template">
+namespace allMyMacros{
+	[Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [Autodesk.Revit.DB.Macros.AddInId("C329BC57-C708-4670-9239-A40E1CED1CE0")]
+	public partial class ThisApplication{
+		public void MyFirstMacro()
+    	{
+    		TaskDialog.Show("Dialog Title", "My first Macro!");
+   		}
+	}
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+- Namespace
+- Class
+- Method
+</script></section><section  data-markdown><script type="text/template">
+## List, Collection, IList, ICollection
+</script></section><section  data-markdown><script type="text/template">
 ## Access Modifiers 
 ***
 - **PUBLIC** Available to all callers with access to the type
