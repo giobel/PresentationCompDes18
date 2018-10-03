@@ -220,9 +220,8 @@ FilteredElementCollector collector = new FilteredElementCollector(doc, view.Id)
 elems = []
 
 for c in collector:
-	if c.Category.Name == "Walls":
-	#if c.Category.HasMaterialQuantities == True:
-		elems.append(c)
+	if c.Category != None and c.Category.Name == "Sheets":
+			elems.append(c)
 ```
 
 *C#*
@@ -230,10 +229,12 @@ for c in collector:
 List<Element> viewElements = new List<Element>();
 
 foreach (Element e in collector) {
-	if (e.Category.HasMaterialQuantities == true)
+	if (e.Category != null && e.Category.Name == "Sheet")
 		viewElements.Add(e);
 }
 ```
+
+note: show how to retrieve the category name with RevitLookup. Show debug to check null
 
 ---
 
