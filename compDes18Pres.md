@@ -136,21 +136,21 @@ for c in collector:
 		elems.append(c)
 
 TransactionManager.Instance.EnsureInTransaction(doc)
-	
+
+result = []	
+
 for e in elems:
-	id = None
+	eid = e.Id
 	try:
-		id = e.Id
-		del_id = doc.Delete(id)
-		deleted.extend([d.ToString() for d in del_id])
+		del_id = doc.Delete(eid)
+		result.append(str(eid)+" deleted")
 	except:
-		if id is not None:
-			failed.append(id.ToString())
-	
+		result.append(str(eid)+" failed")
+
 TransactionManager.Instance.TransactionTaskDone()
 
 
-OUT = deleted, failed
+OUT = result
 ```
 
 ---
@@ -246,6 +246,7 @@ foreach (Element e in collector) {
 
 ```python
 TransactionManager.Instance.EnsureInTransaction(doc)
+#Do something to the Revit model
 TransactionManager.Instance.TransactionTaskDone()
 ```
 
@@ -254,6 +255,7 @@ TransactionManager.Instance.TransactionTaskDone()
 using (Transaction t = new Transaction(doc))
 {
 t.Start("Delete elements in View");
+//Do something to the Revit model
 t.Commit();
 }
 ```
@@ -270,8 +272,7 @@ del_id = doc.Delete(id)
 
 *C#*
 ```csharp
-ViewDrafting newDraftingView = ViewDrafting.Create(doc,vft.Id);
-newDraftingView.Name = "My New Drafting View";
+doc.Delete(id);
 ```
 
 ---
