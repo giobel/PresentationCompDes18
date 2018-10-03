@@ -219,7 +219,7 @@ collector = FilteredElementCollector( doc, view.Id ).WhereElementIsNotElementTyp
 *C#*
 ```csharp
 FilteredElementCollector collector = new FilteredElementCollector(doc, view.Id)
-.WhereElementIsNotElementType();
+					.WhereElementIsNotElementType();
 ```
 </script></section><section  data-markdown><script type="text/template">
 
@@ -308,6 +308,7 @@ for e in elems:
 		result.append(str(eid)+" failed")
 TransactionManager.Instance.TransactionTaskDone()
 ```
+</script></section><section  data-markdown><script type="text/template">
 
 *C#*
 ```csharp
