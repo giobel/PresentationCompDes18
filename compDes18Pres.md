@@ -135,9 +135,6 @@ for c in collector:
 	if c.Category.HasMaterialQuantities == True:
 		elems.append(c)
 
-deleted = []
-failed = []
-
 TransactionManager.Instance.EnsureInTransaction(doc)
 	
 for e in elems:
