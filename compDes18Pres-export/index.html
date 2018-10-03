@@ -139,16 +139,13 @@ from Autodesk.Revit.DB import FilteredElementCollector
 
 doc = DocumentManager.Instance.CurrentDBDocument
 
-view  = doc.ActiveView
-
-collector = FilteredElementCollector( doc, view.Id ).WhereElementIsNotElementType()
+collector = FilteredElementCollector(doc).WhereElementIsNotElementType()
 
 elems = []
 
 for c in collector:
-	#if c.Category.Name == "Walls":
-	if c.Category.HasMaterialQuantities == True:
-		elems.append(c)
+	if c.Category != None and c.Category.Name == "Sheets":
+			elems.append(c)
 
 result = []	
 
@@ -197,14 +194,12 @@ using System.Linq;
 *Python*
 ```python
 doc = DocumentManager.Instance.CurrentDBDocument
-view  = doc.ActiveView
 ```
 
 *C#*
 ```csharp
 UIDocument uidoc = this.ActiveUIDocument;
 Document doc = uidoc.Document;
-View view = doc.ActiveView;
 ```
 <aside class="notes"><p>Access the UI of the currently Revit project opened. The active or top most view of the project.</p>
 </aside></script></section><section  data-markdown><script type="text/template">
@@ -213,12 +208,12 @@ View view = doc.ActiveView;
 ***
 *Python*
 ```python
-collector = FilteredElementCollector( doc, view.Id ).WhereElementIsNotElementType()
+collector = FilteredElementCollector(doc).WhereElementIsNotElementType()
 ```
 
 *C#*
 ```csharp
-FilteredElementCollector collector = new FilteredElementCollector(doc, view.Id)
+FilteredElementCollector collector = new FilteredElementCollector(doc)
 					.WhereElementIsNotElementType();
 ```
 </script></section><section  data-markdown><script type="text/template">
@@ -231,9 +226,8 @@ FilteredElementCollector collector = new FilteredElementCollector(doc, view.Id)
 elems = []
 
 for c in collector:
-	if c.Category.Name == "Walls":
-	#if c.Category.HasMaterialQuantities == True:
-		elems.append(c)
+	if c.Category != None and c.Category.Name == "Sheets":
+			elems.append(c)
 ```
 
 *C#*
@@ -241,11 +235,13 @@ for c in collector:
 List<Element> viewElements = new List<Element>();
 
 foreach (Element e in collector) {
-	if (e.Category.HasMaterialQuantities == true)
+	if (e.Category != null && e.Category.Name == "Sheet")
 		viewElements.Add(e);
 }
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+<aside class="notes"><p>show how to retrieve the category name with RevitLookup. Show debug to check null</p>
+</aside></script></section><section  data-markdown><script type="text/template">
 
 ## TRANSACTION
 ***
@@ -261,7 +257,7 @@ TransactionManager.Instance.TransactionTaskDone()
 ```csharp
 using (Transaction t = new Transaction(doc))
 {
-t.Start("Delete elements in View");
+t.Start("Delete Sheets");
 //Do something to the Revit model
 t.Commit();
 }

@@ -124,9 +124,7 @@ from Autodesk.Revit.DB import FilteredElementCollector
 
 doc = DocumentManager.Instance.CurrentDBDocument
 
-view  = doc.ActiveView
-
-collector = FilteredElementCollector( doc, view.Id ).WhereElementIsNotElementType()
+collector = FilteredElementCollector(doc).WhereElementIsNotElementType()
 
 elems = []
 
@@ -183,14 +181,12 @@ using System.Linq;
 *Python*
 ```python
 doc = DocumentManager.Instance.CurrentDBDocument
-view  = doc.ActiveView
 ```
 
 *C#*
 ```csharp
 UIDocument uidoc = this.ActiveUIDocument;
 Document doc = uidoc.Document;
-View view = doc.ActiveView;
 ```
 note: Access the UI of the currently Revit project opened. The active or top most view of the project.
 
@@ -200,12 +196,12 @@ note: Access the UI of the currently Revit project opened. The active or top mos
 ***
 *Python*
 ```python
-collector = FilteredElementCollector( doc, view.Id ).WhereElementIsNotElementType()
+collector = FilteredElementCollector(doc).WhereElementIsNotElementType()
 ```
 
 *C#*
 ```csharp
-FilteredElementCollector collector = new FilteredElementCollector(doc, view.Id)
+FilteredElementCollector collector = new FilteredElementCollector(doc)
 					.WhereElementIsNotElementType();
 ```
 
@@ -251,7 +247,7 @@ TransactionManager.Instance.TransactionTaskDone()
 ```csharp
 using (Transaction t = new Transaction(doc))
 {
-t.Start("Delete elements in View");
+t.Start("Delete Sheets");
 //Do something to the Revit model
 t.Commit();
 }
