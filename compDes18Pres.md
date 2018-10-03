@@ -135,20 +135,17 @@ for c in collector:
 	if c.Category.HasMaterialQuantities == True:
 		elems.append(c)
 
-TransactionManager.Instance.EnsureInTransaction(doc)
-
 result = []	
 
+TransactionManager.Instance.EnsureInTransaction(doc)
 for e in elems:
 	eid = e.Id
 	try:
-		del_id = doc.Delete(eid)
+		doc.Delete(eid)
 		result.append(str(eid)+" deleted")
 	except:
 		result.append(str(eid)+" failed")
-
 TransactionManager.Instance.TransactionTaskDone()
-
 
 OUT = result
 ```
@@ -261,18 +258,67 @@ t.Commit();
 ```
 
 ---
+## TRY CATCH
+***
 
-## CALLING A METHOD
+```python
+try:
+#Try something
+except:
+#Except
+finally:
+#Finally
+```
+
+```csharp
+try{
+	//Try something
+}
+catch{
+	//Catch
+}
+finally{
+	//Release
+}
+```
+
+---
+
+## CONCLUSION
 ***
 *Python*
 
 ```python
-del_id = doc.Delete(id)
+result = []
+TransactionManager.Instance.EnsureInTransaction(doc)
+for e in elems:
+	eid = e.Id
+	try:
+		doc.Delete(eid)
+		result.append(str(eid)+" deleted")
+	except:
+		result.append(str(eid)+" failed")
+TransactionManager.Instance.TransactionTaskDone()
 ```
 
 *C#*
 ```csharp
-doc.Delete(id);
+string s = "";
+	using (Transaction t = new Transaction (doc, "Delete Elements in View")){
+	t.Start();
+	foreach (Element e in viewElements) {
+		ElementId eid = e.Id;
+		try{
+			doc.Delete(eid);
+			s += eid.ToString() + " deleted" + Environment.NewLine;
+		}
+		catch{
+			s += eid.ToString() + " failed" + "/n";
+		}
+	}
+	t.Commit();
+}
+TaskDialog.Show("Delete Elements in View", s);
 ```
 
 ---
