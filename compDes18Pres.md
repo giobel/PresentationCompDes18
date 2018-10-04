@@ -522,6 +522,69 @@ public partial class Form2 : winForm.Form
 		}
 }//close macro
 ```
+---
+## ADD TEXT LABELS
+***
+
+```csharp
+public partial class Form2 : winForm.Form
+{
+	public Form2()
+	{
+		InitializeComponent();
+	}
+			
+	public bool schedulesSelected; 
+	public bool sheetsSelected;
+	
+	void DeleteBtnClick(object sender, System.EventArgs e)
+		{	
+		schedulesSelected = checkBoxSchedules.Checked;
+		sheetsSelected = checkBoxSheets.Checked;	
+		}
+	
+	public int sheetsCount;
+	public int schedulesCount;
+	
+	void CheckBoxSheetsCheckedChanged(object sender, EventArgs e)
+	{
+		if (checkBoxSheets.Checked)
+			labelSheets.Text = sheetsCount.ToString() + " selected";
+		else
+			labelSheets.Text = "";
+	}
+	void CheckBoxSchedulesCheckedChanged(object sender, EventArgs e)
+	{
+		if (checkBoxSchedules.Checked)
+			labelSchedules.Text = schedulesCount.ToString() + " selected";
+		else
+			labelSchedules.Text = "";
+	}
+}
+```
+---
+## THIS APPLICATION
+***
+```csharp
+ public void deleteElementsForm(){
+   UIDocument uidoc = this.ActiveUIDocument;
+   Document doc = uidoc.Document;
+   using (var form = new Form2()) {
+		form.sheetsCount = Helpers.countElements(uidoc,typeof(ViewSheet)); //Set variable before form.Show
+		form.schedulesCount = Helpers.countElements(uidoc,typeof(ViewSchedule));
+		form.ShowDialog();				
+		
+		if (form.DialogResult == winForms.DialogResult.OK)
+		{
+			if (form.schedulesSelected == true)
+				Helpers.deleteElements(uidoc, typeof(ViewSchedule));
+			
+			if (form.sheetsSelected == true)
+				Helpers.deleteElements(uidoc, typeof(ViewSheet));
+		}
+		}
+}//close macro
+```
 
 ---
 
