@@ -2,6 +2,7 @@
 customTheme : "myTheme"
 transition: "none"
 #highlightTheme: "revitHighlight"
+slideNumber: true
 width: "80%"
 height: "80%"
 margin: 0.1
@@ -321,7 +322,7 @@ TaskDialog.Show("Delete Elements in View", s);
 
 ---
 
-## C# SYNTAX
+## C# SYNTAX (IN A NUTSHELL)
 ***
 
 ```csharp
@@ -339,6 +340,7 @@ namespace allMyMacros{
 ```
 
 ---
+
 - Namespace
 - Class
 - Method
@@ -436,29 +438,89 @@ FilteredElementCollector viewTypes = new FilteredElementCollector(doc)
 ## HELPERS
 ***
 ```csharp
-public static List<View> collectTemplates(Document doc){
-
-IEnumerable<View> fec = new FilteredElementCollector(doc)
-		.OfClass(typeof(View))
-		.Cast<View>();
-List<View> myVT = new List<View>();
-
-foreach (View v in fec)
-{
-	if (v.IsTemplate){
-		myVT.Add(v);
+public static void deleteElements(UIDocument uidoc, Type typeToDelete)
+	{
+	Document doc = uidoc.Document;
+	IList<Element> sheets = new FilteredElementCollector(doc).OfClass(typeToDelete).ToElements();
+	string s = "";
+		using (Transaction t = new Transaction (doc, "Delete Sheets")){
+		t.Start();
+		foreach (Element e in sheets) {
+			ElementId eid = e.Id;
+			try{
+				doc.Delete(eid);
+				s += eid.ToString() + " deleted" + Environment.NewLine;
+			}
+			catch{
+				s += eid.ToString() + " failed" + "/n";
+			}
+		}
+		t.Commit();
 	}
+	TaskDialog.Show("Delete Sheets", s);
+}//close method
+```
+---
+## THIS APPLICATION
+***
+```csharp
+public void deleteElementsForm(){
+	UIDocument uidoc = this.ActiveUIDocument;
+	Helpers.deleteElements(uidoc, typeof(ViewSchedule)); 
+	//error if not static -> object reference is required
 }
-return myVT;
+```
+---
+## CREATE FORM
+***
+<img src="images/macro002.PNG" width="900">
+
+---
+## FORM METHODS
+```csharp
+public partial class Form2 : winForm.Form
+{
+	public Form2()
+	{
+		InitializeComponent();
+	}
+			
+	public bool schedulesSelected; 
+	public bool sheetsSelected;
+
+	
+	void DeleteBtnClick(object sender, System.EventArgs e)
+		{	
+		schedulesSelected = checkBoxSchedules.Checked;
+		sheetsSelected = checkBoxSheets.Checked;	
+		}
 }
 ```
 
+---
+## LOAD FORM
+***
 ```csharp
-public static
-```
-
-```csharp
-IEnumerable<View>
+ public void deleteElementsForm(){
+		   	
+   UIDocument uidoc = this.ActiveUIDocument;
+   Document doc = uidoc.Document;
+   
+   using (var form = new Form2()) {
+				
+		form.ShowDialog();				
+		
+		if (form.DialogResult == winForms.DialogResult.OK)
+		{
+			if (form.schedulesSelected == true)
+				Helpers.deleteElements(uidoc, typeof(ViewSchedule));
+			
+			if (form.sheetsSelected == true)
+				Helpers.deleteElements(uidoc, typeof(ViewSheet));
+		}
+		
+		}
+}//close macro
 ```
 
 ---
