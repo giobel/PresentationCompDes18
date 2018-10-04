@@ -477,6 +477,8 @@ public void deleteElementsForm(){
 
 ---
 ## FORM METHODS
+***
+
 ```csharp
 public partial class Form2 : winForm.Form
 {
@@ -490,10 +492,10 @@ public partial class Form2 : winForm.Form
 
 	
 	void DeleteBtnClick(object sender, System.EventArgs e)
-		{	
+	{	
 		schedulesSelected = checkBoxSchedules.Checked;
 		sheetsSelected = checkBoxSheets.Checked;	
-		}
+	}
 }
 ```
 
@@ -570,10 +572,10 @@ public partial class Form2 : winForm.Form
    UIDocument uidoc = this.ActiveUIDocument;
    Document doc = uidoc.Document;
    using (var form = new Form2()) {
-		form.sheetsCount = Helpers.countElements(uidoc,typeof(ViewSheet)); //Set variable before form.Show
+		form.sheetsCount = Helpers.countElements(uidoc,typeof(ViewSheet)); 
 		form.schedulesCount = Helpers.countElements(uidoc,typeof(ViewSchedule));
+		//Set variable before form.ShowDialog()
 		form.ShowDialog();				
-		
 		if (form.DialogResult == winForms.DialogResult.OK)
 		{
 			if (form.schedulesSelected == true)
@@ -585,29 +587,13 @@ public partial class Form2 : winForm.Form
 		}
 }//close macro
 ```
+---
+# APPENDIX
 
 ---
 
-## FORM
-```csharp
-public partial class Form2 : frms.Form {
-public int chosenView;
-public Form2(Document doc) {
-InitializeComponent();
-List<View> viewTemplates = Helpers.collectTemplates(doc);
-foreach (var v in viewTemplates) {
-comboBoxDrop.Items.Add(v.Name);
-}
-}
-void Form2Load(object sender, EventArgs e){ }
-void ComboBox1SelectedIndexChanged(object sender, EventArgs e){
-chosenView = comboBoxDrop.SelectedIndex;}
-}
-```
-
----
-
-## FORM NAMESPACE
+## FORM NAMESPACE AMBIGUITY
+***
 ```csharp
 using System;
 using Autodesk.Revit.UI;
@@ -627,29 +613,33 @@ using winForms = System.Windows.Forms;
 ...
 public partial class Form1 : winForms.Form
 ```
-
 ---
-
-## Combobox Selected Index Changed Event
+## CHECHED LIST BOX
 ***
 ```csharp
-void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
+public partial class Form2 : frms.Form
 {
-chosenViewTemplate = comboBox1.SelectedIndex;
+    public int chosenView;
+    public Form2(Document doc) //Pass the document as argument
+    {
+        InitializeComponent();
+        List<View> viewTemplates = Helpers.collectTemplates(doc);
+        foreach (var v in viewTemplates)
+        {
+            comboBoxDrop.Items.Add(v.Name);
+        }
+    }
+    void Form2Load(object sender, EventArgs e) { }
+    void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
+    {
+        chosenView = comboBoxDrop.SelectedIndex;
+    }
 }
 ```
 
 ---
 
-## Add the document as an argument of the form
-***
-```csharp
-public CreateDraftingViewForm(Document doc)
-```
-
----
-
-## THIS APPLICATION
+## COMBOBOX (DROPDOWN MENU)
 ***
 ```csharp
 public void PopulateDropDown()
@@ -665,71 +655,27 @@ TaskDialog.Show("result",
 		allViewTemplates[forma.chosenView].Name);
 }
 ```
-
 ---
 
-## How to access properties inside classes
-***
-```csharp
-TaskDialog.Show("ViewTemplateSelected", form.chosenViewTemplate);
-```
-
----
-
-## Use while to keep the Dialog box open
+## WHILE LOOP
 ***
 ```csharp
 string interrupt = "False";
 while(interrupt == "False") {
-form.ShowDialog();
-if (form.usertext.Length >2) {
-Helpers.AddDraftingView(doc, form.usertext, form.chosenTemplateId);
-interrupt = "True";
-}
-else if (form.usertext == "") {
-TaskDialog.Show("Error", "Please specify the view name"); }
-else if (form.usertext.Length <2) {
-TaskDialog.Show("Error", "The view name is too short");   }
-else { TaskDialog.Show("Error", "I don't know what went wrong");  }
-}
-```
-               
-
----
-
-## HELLO WORLD!
-***
-```csharp
-public void disallowBeamJoins(){
-UIDocument uidoc = this.ActiveUIDocument;
-Document doc = uidoc.Document;
-
-ICollection<ElementId> selElementsIds = uidoc.Selection.GetElementIds();
-List<Element> selElements = new List<Element>();
-string selected = "";
-foreach (var element in selElementsIds) {
-	selected += element.ToString() +"\n";
-	selElements.Add(doc.GetElement(element));	
-}
-TaskDialog.Show("Selected Element Id", selected)
+	form.ShowDialog();
+	if (form.usertext.Length >2) {
+		Helpers.AddDraftingView(doc, form.usertext, form.chosenTemplateId);
+		interrupt = "True";
+	}
+	else if (form.usertext == "") {
+		TaskDialog.Show("Error", "Please specify the view name"); }
+	else if (form.usertext.Length<2) {
+		TaskDialog.Show("Error", "The view name is too short");   }
+	else { 
+		TaskDialog.Show("Error", "I don't know what went wrong");  }
 }
 ```
----
-## HELLO WORLD!
-***
-```csharp
-using (Transaction t = new Transaction(doc, "Disallow Joins")){
-	t.Start();
-		foreach (Element e in selElements){
-			FamilyInstance fa = e as FamilyInstance;
-			StructuralFramingUtils.DisallowJoinAtEnd(fa, 0);
-			StructuralFramingUtils.DisallowJoinAtEnd(fa, 1);
-		}
-	t.Commit();
-}
-TaskDialog.Show("title", selElements.Count.ToString());
-}
-```
+
 ---
 <iframe src="https://giobel.github.io/PresentationCompDes18/compDes18Pres-export/loader" width= "1200"  height="500" scrolling="no"></iframe>
 
