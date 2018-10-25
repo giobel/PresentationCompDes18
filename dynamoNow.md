@@ -24,19 +24,21 @@ aaa
 ---
 
 ## DYNAMO 1.3 vs 2.0
----
+***
 
 bbb
 
-## THEN ONE DAY
 ---
+
+## THEN ONE DAY
+***
 
 dynamo is dead
 
 ---
 
 ## WHICH DYNAMO ARE WE TALKNG ABOUT?
----
+***
 
 - For Structure
 - For MEP
