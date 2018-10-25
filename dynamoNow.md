@@ -11,7 +11,8 @@ maxScale: 1
 center: false
 ---
 
-## DYNAMO: WHERE WE ARE AND WHERE ARE WE GOING
+## DYNAMO
+WHERE WE ARE AND WHERE ARE WE GOING
 
 note: 
 
@@ -23,17 +24,18 @@ aaa
 
 ---
 
-## DYNAMO 1.3 vs 2.0
-***
-
-bbb
+|**DYNAMO 1.3**   ||      | **DYNAMO >2.0**       |
+|----              |:------:|:-------------- :|-----------------:                   |
+| XML              | || JSON              |
+| List             | || Dictionary        |
+| { }              | || [ ]               |
 
 ---
 
 ## THEN ONE DAY
 ***
 
-dynamo is dead
+<img src="images\konrad_dynamoIsDead3.PNG" width="900">
 
 ---
 
@@ -43,3 +45,23 @@ dynamo is dead
 - For Structure
 - For MEP
 - For Technicians (agnostic)
+
+---
+
+## FOR STRUCTURE
+***
+
+
+
+---
+
+## FOR MEP
+***
+
+---
+
+## FOR TECHNICIANS
+***
+
+---
+
