@@ -116,3 +116,11 @@ Note: silos = scripts developed works in Dynamo only. No central repository, imp
 ---
 
 ## ARTIST'S IMPRESSION
+
+---
+
+## TT CORE
+
+<img src="images\asterisk_space_iteration.png" width="900">
+
+https://asterisk.thorntontomasetti.com/
